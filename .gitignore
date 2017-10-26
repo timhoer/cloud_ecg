@@ -1,0 +1,9 @@
+*.DS_store
+
+*.pyc
+
+Code/__pycache__/
+
+_build/
+.idea/
+.cache/

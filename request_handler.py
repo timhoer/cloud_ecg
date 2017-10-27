@@ -1,5 +1,8 @@
+sys.path.insert(0, './bme590hrm/Code')
 from flask import Flask, request, jsonify
-app= Flask(__name__)
+from classy_hrm import classy_hrm
+app = Flask(__name__)
+calls = 0
 
 
 @app.route("/requests", methods=['GET'])
@@ -8,10 +11,15 @@ def request_total():
     :return: the total number of requests the service has served since its
     most recent reboot as JSON
     """
+    global calls
+    calls += 1
+    output = "With this request, {} requests have been served since last reboot.".format(calls)
+    return jsonify(output)
+
 
 
 @app.route("/heart_rate/summary", methods=['POST'])
-def request_summary(time,voltage):
+def request_summary(time, voltage):
     """
     Takes in JSON input "time" and "voltage."
 
@@ -24,11 +32,14 @@ def request_summary(time,voltage):
     """
     time = request.json['time']
     voltage = request.json['voltage']
+    arr = [time_interval, hr, tachy, brady]
+    global calls
+    calls += 1
+    return jsonify(arr)
 
 
-
-@app.route("/add", methods=['POST'])
-def return_average():
+@app.route("/heart_rate/average", methods=['POST'])
+def request_average():
     """
     Takes in JSON input "averaging_period", "time," and "voltage."
 
@@ -44,4 +55,8 @@ def return_average():
     window = request.json['averaging_period']
     time = request.json['time']
     voltage = request.json['voltage']
+    arr = [period, time_interval, hr, tachy, brady]
+    global calls
+    calls += 1
+    return jsonify(arr)
 

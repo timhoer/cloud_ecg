@@ -1,5 +1,5 @@
 import sys
-sys.path.insert(0, './bme590hrm/Code')
+sys.path.insert(0, '/bme590hrm/Code')
 from flask import Flask, request, jsonify
 from classy_hrm import classy_hrm
 app = Flask(__name__)
@@ -14,9 +14,8 @@ def request_total():
     """
     global calls
     calls += 1
-    output = "With this request, {} requests have been served since last reboot.".format(calls)
+    output = {"requests": calls}
     return jsonify(output)
-
 
 
 @app.route("/heart_rate/summary", methods=['POST'])

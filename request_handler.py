@@ -1,3 +1,4 @@
+import sys
 sys.path.insert(0, './bme590hrm/Code')
 from flask import Flask, request, jsonify
 from classy_hrm import classy_hrm

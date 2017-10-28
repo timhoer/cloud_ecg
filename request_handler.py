@@ -19,7 +19,7 @@ def request_total():
 
 
 @app.route("/heart_rate/summary", methods=['POST'])
-def request_summary(time, voltage):
+def request_summary():
     """
     Takes in JSON input "time" and "voltage."
 
@@ -30,13 +30,13 @@ def request_summary(time, voltage):
                 "bradycardia_annotations": [false, false, false, ...],
             }
     """
-    time = request.json['time']
-    voltage = request.json['voltage']
-    arr = [time_interval, hr, tachy, brady]
     global calls
     calls += 1
+    time = request.json['time']
+    voltage = request.json['voltage']
     data = ECG(time, voltage)
-    return jsonify(arr)
+    output = data.get_summary()
+    return jsonify(output)
 
 
 @app.route("/heart_rate/average", methods=['POST'])
@@ -53,12 +53,12 @@ def request_average():
                 "bradycardia_annotations": [false, false, false, ...],
             }
     """
+    global calls
+    calls += 1
     window = request.json['averaging_period']
     time = request.json['time']
     voltage = request.json['voltage']
-    arr = [period, time_interval, hr, tachy, brady]
-    global calls
-    calls += 1
-    data = ECG(averaging_period, time, voltage)
-    return jsonify(arr)
+    data = ECG(window, time, voltage)
+    output = data.get_average()
+    return jsonify(output)
 

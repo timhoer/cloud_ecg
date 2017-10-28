@@ -35,6 +35,7 @@ def request_summary(time, voltage):
     arr = [time_interval, hr, tachy, brady]
     global calls
     calls += 1
+    data = ECG(time, voltage)
     return jsonify(arr)
 
 
@@ -58,5 +59,6 @@ def request_average():
     arr = [period, time_interval, hr, tachy, brady]
     global calls
     calls += 1
+    data = ECG(averaging_period, time, voltage)
     return jsonify(arr)
 

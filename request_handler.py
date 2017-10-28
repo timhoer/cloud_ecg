@@ -34,7 +34,7 @@ def request_summary():
     calls += 1
     time = request.json['time']
     voltage = request.json['voltage']
-    data = ECG(time, voltage)
+    data = ECG(time=time, voltage=voltage)
     output = data.get_summary()
     return jsonify(output)
 
@@ -58,7 +58,7 @@ def request_average():
     window = request.json['averaging_period']
     time = request.json['time']
     voltage = request.json['voltage']
-    data = ECG(window, time, voltage)
+    data = ECG(window=window, time=time, voltage=voltage)
     output = data.get_average()
     return jsonify(output)
 

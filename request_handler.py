@@ -56,11 +56,18 @@ def request_average():
     """
     global calls
     calls += 1
-    window = request.json['averaging_period']
-    file_input= request.json['file']
-    tachy_max = request.json['tachy_max']
-    brady_min = request.json['brady_min']
-    data = ECG(window=window, tachy_max=tachy_max, brady_min=brady_min, file_input=file_input)
-    output = data.get_average()
-    return jsonify(output)   
+    try:
+        window = request.json['averaging_period']
+        file_input= request.json['file']
+        tachy_max = request.json['tachy_max']
+        brady_min = request.json['brady_min']
+    except:
+        output = "input data incorrectly formatted. Please try again"
+        return jsonify(output), 400
+    try:
+        data = ECG(window=window, tachy_max=tachy_max, brady_min=brady_min, file_input=file_input)
+        output = data.get_average()
+    except:
+        output = "Internal error. Please try again later"
+        return jsonify(output)   
 

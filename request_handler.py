@@ -2,6 +2,7 @@ import sys
 sys.path.insert(0, './bme590hrm/Code')
 from flask import Flask, request, jsonify
 from classy_hrm import classy_hrm
+from ecg import ECG
 app = Flask(__name__)
 calls = 0
 
@@ -56,9 +57,10 @@ def request_average():
     global calls
     calls += 1
     window = request.json['averaging_period']
-    time = request.json['time']
-    voltage = request.json['voltage']
-    data = ECG(window=window, time=time, voltage=voltage)
+    file_input= request.json['file']
+    tachy_max = request.json['tachy_max']
+    brady_min = request.json['brady_min']
+    data = ECG(window=window, tachy_max=tachy_max, brady_min=brady_min, file_input=file_input)
     output = data.get_average()
-    return jsonify(output)
+    return jsonify(output)   
 

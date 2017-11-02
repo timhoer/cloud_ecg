@@ -1,12 +1,10 @@
 import sys
 sys.path.insert(0, './bme590hrm/Code')
 from flask import Flask, request, jsonify
-from classy_hrm import classy_hrm
 from ecg import ECG
 app = Flask(__name__)
 calls = 0
 
-classy_hrm()
 
 @app.route("/requests", methods=['GET'])
 def request_total():

@@ -6,6 +6,7 @@ from ecg import ECG
 app = Flask(__name__)
 calls = 0
 
+classy_hrm()
 
 @app.route("/requests", methods=['GET'])
 def request_total():

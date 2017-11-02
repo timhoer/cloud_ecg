@@ -46,6 +46,7 @@ def request_summary():
         output = "Internal error. Please try again later."
         return jsonify(output), 500
 
+
 @app.route("/heart_rate/average", methods=['POST'])
 def request_average():
     """

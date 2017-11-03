@@ -75,11 +75,6 @@ The output for the Average Heart Rate with the Avg HR, Brady and Tachcardia vect
 } <br />
 
 
-
-Unit Testing
-=========
-Unit testing is performed using py.test by running test_hrm.py.
-
 Team Members:
 ======
 + Caleb Willis
